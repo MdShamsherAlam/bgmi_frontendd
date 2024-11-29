@@ -1,0 +1,834 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
+</head>
+<style>
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+nav {
+  flex: 1;
+  text-align: right;
+}
+
+nav ul {
+  display: inline-block;
+  list-style-type: none;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: #555;
+}
+
+p {
+  color: #555;
+}
+
+.container {
+  max-width: 1300px;
+  margin: auto;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.col-2 {
+  flex-basis: 50%;
+  min-width: 300px;
+}
+
+.col-2 img {
+  max-width: 100%;
+  padding: 50px 0;
+}
+
+.col-2 h1 {
+  font-size: 50px;
+  line-height: 60px;
+  margin: 25px 0;
+}
+
+.btn {
+  display: inline-block;
+  background: #ff523b;
+  color: #ffffff;
+  padding: 8px 30px;
+  margin: 30px 0;
+  border-radius: 30px;
+  transition: background 0.5s;
+}
+
+.btn:hover {
+  background: #563434;
+}
+
+.header {
+  background: radial-gradient(#fff, #ffd6d6);
+}
+
+.header .row {
+  margin-top: 70px;
+}
+
+.categories {
+  margin: 70px 0;
+}
+
+.col-3 {
+  flex-basis: 30%;
+  min-width: 250px;
+  margin-bottom: 30px;
+}
+
+.col-3 img {
+  width: 100%;
+}
+
+.small-container {
+  max-width: 1080px;
+  margin: auto;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.col-4 {
+  flex-basis: 25%;
+  padding: 10px;
+  min-width: 200px;
+  margin-bottom: 50px;
+  transition: transform 0.5s;
+}
+
+.col-4 img {
+  width: 100%;
+}
+
+.title {
+  text-align: center;
+  margin: 0 auto 80px;
+  position: relative;
+  line-height: 60px;
+  color: #555;
+}
+
+.title::after {
+  content: "";
+  background: #ff523b;
+  width: 80px;
+  height: 5px;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+h4 {
+  color: #555;
+  font-weight: normal;
+}
+
+.col-4 p {
+  font-size: 14px;
+}
+
+.rating .fas,
+.rating .far {
+  color: #ff523b;
+}
+
+.col-4:hover {
+  transform: translateY(-5px);
+}
+
+/* Offer */
+.offer {
+  background: radial-gradient(#fff, #ffd6d6);
+  margin-top: 80px;
+  padding: 30px 0;
+}
+
+.col-2 .offer-img {
+  padding: 50px;
+}
+
+small {
+  color: #555;
+}
+
+/* testimonial */
+.testimonial {
+  padding-top: 100px;
+}
+
+.testimonial .col-3 {
+  text-align: center;
+  padding: 40px 20px;
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+
+.testimonial .col-3 img {
+  width: 100px;
+  margin-top: 20px;
+  border-radius: 50%;
+}
+
+.testimonial .col-3:hover {
+  transform: translateY(-10px);
+}
+
+.fa-quote-left {
+  font-size: 34px;
+  color: #ff523b;
+}
+
+.col-3 p {
+  font-size: 14px;
+  margin: 12px 0;
+  color: #777777;
+}
+
+.testimonial .col-3 h3 {
+  font-weight: 600;
+  color: #555;
+  font-size: 16px;
+}
+
+.brands {
+  margin: 100px auto;
+}
+
+.col-5 {
+  width: 160px;
+}
+
+.col-5 img {
+  width: 100%;
+  cursor: pointer;
+  filter: grayscale(100%);
+}
+
+.col-5 img:hover {
+  width: 100%;
+  cursor: pointer;
+  filter: grayscale(0);
+}
+
+/* footer */
+.footer {
+  background: #000;
+  color: #8a8a8a;
+  font-size: 14px;
+  padding: 60px 0 20px;
+}
+
+.footer p {
+  color: #8a8a8a;
+}
+
+.footer h3 {
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.footer-col-1,
+.footer-col-2,
+.footer-col-3,
+.footer-col-4 {
+  min-width: 250px;
+  margin-bottom: 20px;
+}
+
+.footer-col-1 {
+  flex-basis: 30%;
+}
+
+.footer-col-2 {
+  flex: 1;
+  text-align: center;
+}
+
+.footer-col-2 img {
+  width: 180px;
+  margin-bottom: 20px;
+}
+
+.footer-col-3,
+.footer-col-4 {
+  flex-basis: 12%;
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.app-logo {
+  margin-top: 20px;
+}
+
+.app-logo img {
+  width: 140px;
+}
+
+.footer hr {
+  border: none;
+  background: #b5b5b5;
+  height: 1px;
+  margin: 20px 0;
+}
+
+.copyright {
+  text-align: center;
+}
+
+.menu-icon {
+  width: 28px;
+  margin-left: 20px;
+  display: none;
+}
+
+/* media query for menu */
+@media only screen and (max-width: 800px) {
+  nav ul {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    background: #333;
+    width: 100%;
+    overflow: hidden;
+    transition: max-height 0.5s;
+  }
+  nav ul li {
+    display: block;
+    margin-right: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  nav ul li a {
+    color: #fff;
+  }
+
+  .menu-icon {
+    display: block;
+    cursor: pointer;
+  }
+}
+
+/* all products page */
+.row-2 {
+  justify-content: space-between;
+  margin: 100px auto 50px;
+}
+
+select {
+  border: 1px solid #ff523b;
+  padding: 5px;
+}
+
+select:focus {
+  outline: none;
+}
+
+.page-btn {
+  margin: 0 auto 80px;
+}
+
+.page-btn span {
+  display: inline-block;
+  border: 1px solid #ff523b;
+  margin-left: 10px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+}
+
+.page-btn span:hover {
+  background: #ff523b;
+  color: #ffffff;
+}
+
+/* single product details */
+.single-product {
+  margin-top: 80px;
+}
+
+.single-product .col-2 img {
+  padding: 0;
+}
+
+.single-product .col-2 {
+  padding: 20px;
+}
+
+.single-product h4 {
+  margin: 20px 0;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.single-product select {
+  display: block;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.single-product input {
+  width: 153px;
+  height: 40px;
+  padding-left: 10px;
+  font-size: 12px;
+  margin-right: 10px;
+  border: 1px solid #ff523b;
+}
+
+input:focus {
+  outline: none;
+}
+
+.single-product .fas {
+  color: #ff523b;
+  margin-left: 10px;
+}
+
+.small-img-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.small-img-col {
+  flex-basis: 24%;
+  cursor: pointer;
+}
+
+/* cart items */
+.cart-page {
+  margin: 90px auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-info {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+th {
+  text-align: left;
+  padding: 5px;
+  color: #ffffff;
+  background: #ff523b;
+  font-weight: normal;
+}
+
+td {
+  padding: 10px 5px;
+}
+
+td input {
+  width: 40px;
+  height: 30px;
+  padding: 5px;
+}
+
+td a {
+  color: #ff523b;
+  font-size: 12px;
+}
+
+td img {
+  width: 80px;
+  height: 80px;
+  margin-right: 10px;
+}
+
+.total-price {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.total-price table {
+  margin-right: 20px;
+}
+
+.total-price table tr th {
+  text-align: right;
+}
+
+.total-price table tr th,
+.total-price table tr td {
+  padding: 15px 20px;
+  font-size: 18px;
+  border: 1px solid #ff523b;
+}
+
+.checkout-btn {
+  background: #ff523b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.checkout-btn:hover {
+  background: #563434;
+}
+
+.cart-item .total-price {
+  text-align: center;
+}
+
+.cart-item .checkout-btn {
+  margin-top: 20px;
+}
+
+/* Apply consistent size to all images */
+img {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensure the image fits well within its container */
+}
+
+/* Specific adjustments for images in columns */
+.col-2 img,
+.col-3 img,
+.col-4 img,
+.testimonial .col-3 img,
+.col-5 img {
+  width: 100%;
+  height: 200px; /* Set a fixed height for all images */
+  object-fit: cover; /* Ensure the image covers the entire area */
+}
+
+/* Adjust images in small img columns to have consistent size */
+.small-img-col img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: 120px; /* Adjust to your needs */
+}
+
+/* For product images */
+.single-product .col-2 img {
+  width: 100%;
+  height: 300px; /* Fixed height for product images */
+  object-fit: cover;
+}
+
+
+</style>
+<body>
+   <%- include('./partials/header'); %>
+<!-- single product details -->
+<div class="small-container single-product">
+  <div class="row">
+    <div class="col-2">
+      <img src=""  alt="" width="100%" crossorigin="anonymous" id="ProductImg" />
+    </div>
+    <div class="col-2">
+      <h2 id="mode"> </h2>
+      <h1></h1>
+      <h4>₹500</h4>
+      <select>
+        <option> Choose Timing</option>
+        <option>7PM</option>
+        <option>8PM</option>
+        <option>9PM</option>
+        <option>10PM</option>
+        <option>11PM</option>
+      </select>
+      <div id="inputContainer">
+  
+    </div>
+      <a href="" class="btn"  id="bookSlotButton" >Book Your Slot</a>
+
+      <h3>Rules & Regulation <i class="fas fa-indent"></i></h3>
+      <br />
+      <p>
+       
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- title -->
+<div class="small-container">
+  <div class="row row-2">
+    <h2>Related Matches</h2>
+    <p>View more</p>
+  </div>
+</div>
+
+<!-- products -->
+
+<div class="small-container">
+  <div class="row">
+    <div class="col-4">
+      <img src="" alt="" />
+      <h4></h4>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <p></p>
+    </div>
+
+    <div class="col-4">
+      <img src="" alt="" />
+      <h4></h4>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <p></p>
+    </div>
+
+    <div class="col-4">
+      <img src="" alt="" />
+      <h4></h4>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star-half-alt"></i>
+      </div>
+      <p></p>
+    </div>
+
+    <div class="col-4">
+      <img src="" alt="" />
+      <h4></h4>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <p></p>
+    </div>
+  </div>
+</div>
+
+ <%- include('./partials/footer'); %>
+</body>
+
+<script src="js/jquery-.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/anim.js"></script>
+
+
+
+<script>
+
+
+$(document).ready(function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = urlParams.get("product-id");
+
+  if (!productId) {
+    alert("Product ID not found!");
+    return;
+  }
+// Function to get a cookie value by name
+function getCookie(name) {
+    const cookies = document.cookie.split('; ');
+    for (let cookie of cookies) {
+        const [key, value] = cookie.split('=');
+        if (key === name) {
+            return value;
+        }
+    }
+    return null;
+}
+
+// Retrieve the token from cookies
+const token = getCookie("access-token");
+
+if (!token) {
+    alert("You need to be logged in to book a slot.");
+
+    // Optionally redirect to login page
+    window.location.href = "/login"; // Replace "/login" with your login page URL
+    return;
+}
+
+
+ 
+  $.ajax({
+    url: `http://localhost:5000/v1/order/get-products-details/${productId}`,
+    method: "GET",
+    success: function (response) {
+      if (response.status === "success") {
+        const product = response.data.data[0];
+        const recommendedData = response.data.recomendedData || [];
+
+        // Populate Product Details
+        $("#mode").text(`${product.product_type}/${product.product_mode}`);
+        $("#ProductImg").attr("src", product.product_img);
+        $("title").text(product.product_name);
+        $(".small-container .col-2 h1").text(product.product_name);
+        $(".small-container .col-2 h4").text(`₹${product.product_entry_price}`);
+        $(".small-container .col-2 p:last").text(product.rule);
+
+        const inputContainer = $("#inputContainer");
+        inputContainer.empty();
+
+        for (let i = 0; i < parseInt(product.product_mode.charAt(0)); i++) {
+          inputContainer.append(
+            '<input type="text" placeholder="Enter your Ingame name" />'
+          );
+        }
+
+        // Populate Recommended Products
+        displayRecommendedData(recommendedData);
+      } else {
+        alert("Failed to fetch product details. Please try again.");
+      }
+    },
+    error: function (err) {
+      console.error("API Error:", err);
+      alert("An error occurred while fetching product details.");
+    },
+  });
+
+ 
+  $("#bookSlotButton").click(function (e) {
+    e.preventDefault();
+    console.log("Button clicked!"); 
+    
+
+  
+    const timing = $("select option:selected").val();
+    if (timing === "Choose Timing") {
+      alert("Please select a timing.");
+      return;
+    }
+
+    const ingameNames = $("#inputContainer input")
+      .map(function () {
+        return $(this).val().trim();
+      })
+      .get();
+
+    if (ingameNames.some((name) => name === "")) {
+      alert("Please fill in all in-game name fields.");
+      return;
+    }
+
+    const payload = {
+      productId: productId,
+      ingameName1: ingameNames[0] || "",
+      ingameName2: ingameNames[1] || "",
+      ingameName3: ingameNames[2] || "",
+      ingameName4: ingameNames[3] || "",
+      timing: timing,
+    };
+
+    $.ajax({
+      url: "http://localhost:5000/v1/order/take-order",
+      method: "POST",
+      contentType: "application/json",
+      headers: {
+        token: token,
+      },
+      data: JSON.stringify(payload),
+      success: function (response) {
+
+        console.log("response",response)
+        if (response.status === "success") {
+          alert("Slot booked successfully!");
+           window.location.href = "/cart"
+          
+        } else {
+          alert(response.message || "Failed to book slot.");
+        }
+      },
+      error: function (err) {
+        console.error("API Error:", err);
+        alert("An error occurred while booking the slot.");
+      },
+    });
+  });
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  function displayRecommendedData(recommendedData) {
+    const recommendedContainer = $(".small-container .row:last");
+    recommendedContainer.empty();
+
+    const shuffledData = shuffleArray(recommendedData);
+    const limitedData = shuffledData.slice(0, 4);
+
+    limitedData.forEach((item) => {
+      const productHtml = `
+        <div class="col-4">
+          <img src="${item.product_img || 'images/default-product-thumbnail.jpg'}" crossorigin="anonymous" alt="${item.product_name}" />
+          <h4>${item.product_name}</h4>
+          <p>₹${item.product_entry_price}</p>
+        </div>
+      `;
+      recommendedContainer.append(productHtml);
+    });
+  }
+});
+
+
+
+</script>

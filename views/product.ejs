@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
+</head>
+<body>
+
+   <%- include('./partials/header'); %>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">User Purchase History</h2>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th>Product Name</th>
+            <th>Product Made</th>
+            <th>Product Type</th>
+            <th>Entry Fee</th>
+            <th>Winning/Loss</th>
+            <th>Winning Price</th>
+          </tr>
+        </thead>
+        <tbody id="purchase-history">
+          <!-- Data will be inserted here dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+   <%- include('./partials/footer'); %>
+
+</body>
+ <script src="js/jquery-.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/anim.js"></script>
+  <script>
+    $(document).ready(function () {
+     // Function to get a cookie value by name
+function getCookie(name) {
+    const cookies = document.cookie.split('; ');
+    for (let cookie of cookies) {
+        const [key, value] = cookie.split('=');
+        if (key === name) {
+            return value;
+        }
+    }
+    return null;
+}
+
+// Retrieve the token from cookies
+const token = getCookie("access-token");
+
+if (!token) {
+    alert("You need to be logged in to book a slot.");
+
+    // Optionally redirect to login page
+    window.location.href = "/login"; // Replace "/login" with your login page URL
+    return;
+}
+
+// Token exists, proceed with booking
+console.log("Token found in cookies:", token);
+
+// Add logic for booking a slot here
+
+
+      $.ajax({
+        url: "http://localhost:5000/v1/order/get-history", // API endpoint
+        method: "POST",
+        headers: {
+          token: token // Send token in custom header
+        },
+        success: function (response) {
+          if (response.status === "success") {
+            const data = response.data;
+            const tbody = $("#purchase-history");
+            tbody.empty(); // Clear the existing data
+
+            data.forEach(item => {
+              const winningLoss = item.product_winning_price ? "Winning" : "Loss";
+              const winningPrice = item.product_winning_price ? `₹${item.product_winning_price}` : "-";
+              const entryFee = `₹${item.product_entry_price}`;
+
+              const row = `
+                <tr>
+                  <td>${item.product_name}</td>
+                  <td>${item.product_made || "N/A"}</td>
+                  <td>${item.product_type}</td>
+                  <td>${entryFee}</td>
+                  <td>${winningLoss}</td>
+                  <td>${winningPrice}</td>
+                </tr>
+              `;
+              tbody.append(row);
+            });
+          } else {
+            alert("Failed to fetch purchase history.");
+          }
+        },
+        error: function (err) {
+          console.error("API Error:", err);
+          alert("An error occurred while fetching purchase history.");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

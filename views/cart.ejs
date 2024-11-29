@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Shopping Cart</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
+</head>
+<body>
+  <%- include('./partials/header'); %>
+  
+  <div class="container my-5">
+    <h1 class="mb-4 text-center">Your Cart</h1>
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle">
+        <thead class="table-light">
+          <tr>
+            <th scope="col" class="text-center">Match Type</th>
+            <th scope="col" class="text-center">Entry Fee</th>
+            <th scope="col" class="text-center">Winning</th>
+            <th scope="col" class="text-center">Timing</th>
+            <th scope="col" class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody id="cart-container">
+          <!-- Dynamic cart items will be injected here -->
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center mt-4" id="order-button-container">
+      <!-- Place Order button will appear here if the cart has items -->
+    </div>
+  </div>
+
+  <div class="modal" id="imageModal">
+    <div class="modal-content">
+      <button class="close-btn" id="closeModal">&times;</button>
+      <img src="../images/qr.jpeg" alt="Sample Image">
+      <p class="payment-status-text">Are you done with your payment?</p>
+      <div class="bottom-buttons">
+        <button class="bottom-button" id="payment-done-yes">Yes</button>
+        <button class="bottom-button" id="payment-done-no">No</button>
+      </div>
+    </div>
+  </div>
+  <script src="js/jquery-.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/anim.js"></script>
+  
+  <script>
+    $(document).ready(function () {
+      const cartUrl = "http://localhost:5000/v1/order/get-cart";
+      const orderUrl = "http://localhost:5000/v1/order/slot-booked";
+      const removeItemUrl = "http://localhost:5000/v1/order/remove-items";
+
+      function getCookie(name) {
+        const cookies = document.cookie.split('; ');
+        for (let cookie of cookies) {
+          const [key, value] = cookie.split('=');
+          if (key === name) return value;
+        }
+        return null;
+      }
+
+      const token = getCookie("access-token");
+      if (!token) {
+        alert("You need to be logged in to place an order.");
+        window.location.href = "/login";
+        return;
+      }
+
+      let cartData = [];
+
+      $.ajax({
+        url: cartUrl,
+        method: "POST",
+        headers: { "Content-Type": "application/json", token: token },
+        success: function (response) {
+          if (response.status === "success") {
+            cartData = response.data;
+            const cartContainer = $("#cart-container");
+            cartContainer.empty();
+
+            cartData.forEach((item) => {
+              const rowHtml = `
+                <tr data-id="${item.product_id}">
+                  <td> 
+                    
+                      <div>
+                        <h6 class="mb-0">${item.product_name}</h6>
+                        <p class="text-muted small mb-0">Mode: ${item.product_mode}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-center">₹${item.product_entry_price}</td>
+                  <td class="text-center">₹${item.product_winning_price}</td>
+                  <td class="text-center">₹${item.timing}</td>
+                  <td class="text-center">
+                    <button class="btn btn-danger btn-sm remove-product" data-id="${item.product_id}">Remove</button>
+                  </td>
+                </tr>
+              `;
+              cartContainer.append(rowHtml);
+            });
+
+            if (cartData.length > 0) {
+              $("#order-button-container").html(`
+                <button id="place-order-btn" class="btn btn-primary btn-lg">Place Order</button>
+              `);
+            } else {
+              $("#order-button-container").empty();
+            }
+          } else {
+            alert("Failed to fetch cart data.");
+          }
+        },
+        error: function () {
+          alert("Error fetching cart data.");
+        },
+      });
+
+      $(document).on("click", "#place-order-btn", function () {
+        $("#imageModal").addClass("active");
+      });
+
+      $("#closeModal").click(function () {
+        $("#imageModal").removeClass("active");
+      });
+
+      $(document).on("click", ".remove-product", function () {
+        const productId = $(this).data("id");
+        $.ajax({
+          url: removeItemUrl,
+          method: "POST",
+          headers: { "Content-Type": "application/json", token: token },
+          data: JSON.stringify({ productId }),
+          success: function () {
+            alert("Product removed successfully!");
+            location.reload();
+          },
+          error: function () {
+            alert("Failed to remove the product.");
+          },
+        });
+      });
+
+      $(document).on("click", "#payment-done-yes", function () {
+        placeOrder(cartData);
+        $("#imageModal").fadeOut();
+      });
+
+      $(document).on("click", "#payment-done-no", function () {
+        alert("Payment not completed. Please try again.");
+      });
+
+      function placeOrder(cartData) {
+        $.ajax({
+          url: orderUrl,
+          method: "POST",
+          headers: { "Content-Type": "application/json", token: token },
+          data: JSON.stringify(cartData),
+          success: function () {
+            alert("Checking your payment, we will book your slot shortly.");
+            location.reload();
+          },
+          error: function () {
+            alert("Failed to place the order.");
+          },
+        });
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

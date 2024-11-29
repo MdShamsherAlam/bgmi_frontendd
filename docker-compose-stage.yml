@@ -1,0 +1,7 @@
+services:
+  doe-school-infra-frontend:
+    image: harbor.internal.codebuckets.in/doe-school-infra-frontend/stage
+    container_name: doe-school-infra-frontend
+    restart: unless-stopped
+    ports:
+      - "60034:3000"

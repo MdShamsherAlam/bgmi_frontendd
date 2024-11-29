@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Paytm QR Code Payment</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 500px;
+        }
+
+        h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        #qrCodeSection {
+            display: none;
+            margin-top: 30px;
+        }
+
+        #qrCodeImage {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #qrCodeImage:hover {
+            transform: scale(1.05);
+        }
+
+        .btn {
+            background-color: #ff7e5f;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #feb47b;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h3>Generate Your Paytm QR Code</h3>
+        <!-- <button id="generateQR" class="btn">Generate QR Code</button> -->
+        <div id="qrCodeSection">
+            <h3>Your QR Code</h3>
+            <img id="qrCodeImage" src="" alt="QR Code will appear here" />
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Paytm Payment System</p>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            
+            var amount = 100;
+            var orderId = "sdfdf"; 
+
+                $.ajax({
+                    url: 'http://localhost:5000/v1/order/generate-qr-code',
+                    method: 'post',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        amount: amount,
+                        orderId: orderId
+                    }),
+                    success: function(response) {
+                        console.log(response.data.qrCode);
+                       
+                        if (response.data.qrCode) {
+                            $('#qrCodeImage').attr('src', response.data.qrCode); 
+                            $('#qrCodeSection').show(); 
+                        } else {
+                            alert('Error generating QR code.');
+                        }
+                    },
+                    error: function() {
+                        alert('An error occurred while generating the QR code.');
+                    }
+                });
+            });
+
+        
+    </script>
+
+</body>
+</html>

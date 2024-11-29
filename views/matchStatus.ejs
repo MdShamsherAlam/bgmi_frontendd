@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Shopping Cart</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
+</head>
+<body>
+  <%- include('./partials/header'); %>
+
+  <div class="container my-5">
+    <h1 class="mb-4 text-center">MATCH STATUS</h1>
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle">
+        <thead class="table-light">
+          <tr>
+            <th scope="col" class="text-center">Match Type</th>
+            <th scope="col" class="text-center">Timing</th>
+            <th scope="col" class="text-center">Status</th>
+            <th scope="col" class="text-center">Your Ingame</th>
+            <th scope="col" class="text-center">ID_Password</th>
+          </tr>
+        </thead>
+        <tbody id="cart-container">
+          <!-- Dynamic cart items will be injected here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="js/jquery-.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/anim.js"></script>
+
+
+  <script>
+    $(document).ready(function () {
+      const matchStatus = "http://localhost:5000/v1/order/match-status";
+     
+
+      function getCookie(name) {
+        const cookies = document.cookie.split("; ");
+        for (let cookie of cookies) {
+          const [key, value] = cookie.split("=");
+          if (key === name) return value;
+        }
+        return null;
+      }
+
+      const token = getCookie("access-token");
+      if (!token) {
+        alert("You need to be logged in to place an order.");
+        window.location.href = "/login";
+        return;
+      }
+
+      let cartData = [];
+
+      $.ajax({
+        url: matchStatus,
+        method: "POST",
+        headers: { "Content-Type": "application/json", token: token },
+        success: function (response) {
+          if (response.status === "success") {
+            cartData = response.data;
+            const cartContainer = $("#cart-container");
+            cartContainer.empty();
+
+            cartData.forEach((item) => {
+              const rowHtml = `
+                <tr data-id="${item.product_id}">
+                  <td>
+                    <div>
+                      <h6 class="mb-0">${item.product_name}</h6>
+                      <p class="text-muted small mb-0">Mode: ${item.product_mode}</p>
+                    </div>
+                  </td>
+                  <td class="text-center">${item.timing}</td>
+                  <td class="text-center">${item.status}</td>
+              <td>
+  <div>
+    ${item.product_mode === "1v1" ? `
+      <p class="text-muted small mb-0">Ingame1: ${item.ingame1}</p>
+    ` : item.product_mode === "2v2" ? `
+      <p class="text-muted small mb-0">Ingame1: ${item.ingame1}</p>
+      <p class="text-muted small mb-0">Ingame2: ${item.ingame2}</p>
+    ` : item.product_mode === "3v3" ? `
+      <p class="text-muted small mb-0">Ingame1: ${item.ingame1}</p>
+      <p class="text-muted small mb-0">Ingame2: ${item.ingame2}</p>
+      <p class="text-muted small mb-0">Ingame3: ${item.ingame3}</p>
+    ` : item.product_mode === "4v4" ? `
+      <p class="text-muted small mb-0">Ingame1: ${item.ingame1}</p>
+      <p class="text-muted small mb-0">Ingame2: ${item.ingame2}</p>
+      <p class="text-muted small mb-0">Ingame3: ${item.ingame3}</p>
+      <p class="text-muted small mb-0">Ingame4: ${item.ingame4}</p>
+    ` : ""}
+  </div>
+</td>
+
+                  <td class="text-center">
+                   ${item.id_password ? item.id_password : "Coming"}
+                  </td>
+                </tr>
+              `;
+              cartContainer.append(rowHtml);
+            });
+
+          } else {
+            alert("Failed to fetch cart data.");
+          }
+        },
+        error: function () {
+          alert("Error fetching cart data.");
+        },
+      });
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

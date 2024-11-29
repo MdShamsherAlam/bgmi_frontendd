@@ -1,0 +1,70 @@
+<!-- HEADER =============================-->
+<header class="item header margin-top-0 <%= backgroundClass %>">
+    <div class="wrapper">
+        <nav role="navigation" class="navbar navbar-white navbar-embossed navbar-lg navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
+                <i class="fa fa-bars"></i>
+                <span class="sr-only">Toggle navigation</span>
+                </button>
+                <a href="/index" class="navbar-brand brand"> PUDINA </a>
+            </div>
+            <div id="navbar-collapse-02" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="propClone"><a href="/">Home</a></li>
+                    <li class="propClone"><a href="/shop">Tournament</a></li>
+                    <li class="propClone"><a href="/cart">Your Cart</a></li>
+                    <li class="propClone"><a href="/match-status">Match Timing/Idp</a></li>
+                    <li class="propClone"><a href="/product">Your History</a></li>
+                   
+                    <li class="propClone" id="authButton"></li>
+                </ul>
+            </div>
+        </div>
+        </nav>
+      
+    
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+          $(document).ready(function () {
+          // Function to get a cookie value by name
+function getCookie(name) {
+    const cookies = document.cookie.split('; ');
+    for (let cookie of cookies) {
+        const [key, value] = cookie.split('=');
+        if (key === name) {
+            return value;
+        }
+    }
+    return null;
+}
+
+const token = getCookie("access-token");
+
+            if (token) {
+       
+              $("#authButton").html('<a href="#" id="logoutButton">Logout</a>');
+            } else {
+            
+              $("#authButton").html('<a href="/login">Login/SignUp</a>');
+            }
+        
+      
+            $(document).on("click", "#logoutButton", function (e) {
+    e.preventDefault();
+ 
+    function deleteCookie(name) {
+        document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    }
+
+    
+    deleteCookie("access-token");
+
+
+    window.location.href = "/";
+});
+
+          });
+        </script>
+        

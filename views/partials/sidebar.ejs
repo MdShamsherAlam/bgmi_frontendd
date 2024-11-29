@@ -1,0 +1,90 @@
+
+<style>
+	.nav-item .nav-link i {
+    padding: 5px;
+	padding-top: 0px; 
+	padding-bottom: 4px;
+	font-size: 27px;
+	
+}
+.bx-spin {
+    display: inline-block;
+    animation: bx-spin 2s infinite linear;
+    font-size: inherit; 
+}
+
+@keyframes bx-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.nav-item .nav-link:hover {
+		background-color: rgb(255, 0, 34) !important;
+	}
+</style>
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+	<!-- Brand Logo -->
+	<a href="/" class="brand-link">
+		<img
+			src="<%= fileUrl %>images/download12.png"
+			alt="CodeBucket"
+			class="brand-image img-circle elevation-3"
+			style="opacity: 0.8"
+			height="90px"
+		/>
+		<span class="brand-text font-weight-light" style="color: rgb(0, 255, 149); font-size: larger;" ><%= productName %></span>
+	</a>
+	<!-- Sidebar -->
+	<div class="sidebar">
+		<!-- Sidebar user panel (optional) -->
+		<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+			<div class="info">
+				<a href="#" class="d-block" id="college1"></a>
+			</div>
+		</div>
+		<!-- Sidebar Menu -->
+		<span id="sideBar"> </span>
+		<!-- /.sidebar-menu -->
+	</div>
+	<!-- /.sidebar -->
+</aside>
+
+<script>
+	const usersData = JSON.parse(localStorage.getItem("user-data"));
+
+	if (usersData) {
+		console.log(usersData.role)
+		
+		
+		if(usersData.role=="DEO") {
+			$("#sideBar").html(`<nav class="mt-2">
+			<ul
+				class="nav nav-pills nav-sidebar flex-column"
+				data-widget="treeview"
+				role="menu"
+				data-accordion="false"
+			>
+			
+				<li class="nav-item">
+					<a href="/register" class="nav-link">
+						<i class='bx bx-log-in-circle bx-tada' ></i>
+						<p>Register</p>
+					</a>
+				</li>
+			
+				<li class="nav-item">
+					<a href="/logout" class="nav-link">
+						<i class='bx bxs-user-voice bx-burst' ></i>
+						<p>Logout</p>
+					</a>
+				</li>
+			</ul>
+		</nav>`);
+		
+		} 
+	}
+		
+</script>
