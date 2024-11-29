@@ -3,7 +3,7 @@ services:
     type: web
     env: node
     plan: free # Change to a paid plan if necessary
-    buildCommand: npm install --production=false
+    buildCommand: npm install 
     startCommand: node app.js
     envVars:
       - key: NODE_ENV
