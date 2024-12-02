@@ -6,7 +6,7 @@ services:
     branch: main # The branch in your Git repository to deploy
     repo: https://github.com/MdShamsherAlam/bgmi_frontendd.git # Replace with your repository URL
     buildCommand: npm install --production=false # Install dependencies, including dev dependencies
-    startCommand: node app.js # Replace with the command to start your frontend server
+    startCommand: nodemon ./bin/www # Replace with the command to start your frontend server
     plan: free # Choose the pricing plan (free, starter, standard, etc.)
     autoDeploy: true # Automatically deploy on every commit to the branch
     envVars: # Environment variables for the application
