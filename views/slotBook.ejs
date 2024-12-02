@@ -706,7 +706,7 @@ if (!token) {
 
  
   $.ajax({
-    url: `http://localhost:5000/v1/order/get-products-details/${productId}`,
+    url: `https://bgmi-backend-f44n.onrender.com/v1/order/get-products-details/${productId}`,
     method: "GET",
     success: function (response) {
       if (response.status === "success") {
@@ -776,7 +776,7 @@ if (!token) {
     };
 
     $.ajax({
-      url: "http://localhost:5000/v1/order/take-order",
+      url: "https://bgmi-backend-f44n.onrender.com/v1/order/take-order",
       method: "POST",
       contentType: "application/json",
       headers: {

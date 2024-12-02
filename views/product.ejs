@@ -71,7 +71,7 @@ console.log("Token found in cookies:", token);
 
 
       $.ajax({
-        url: "http://localhost:5000/v1/order/get-history", // API endpoint
+        url: "https://bgmi-backend-f44n.onrender.com/v1/order/get-history", // API endpoint
         method: "POST",
         headers: {
           token: token // Send token in custom header
