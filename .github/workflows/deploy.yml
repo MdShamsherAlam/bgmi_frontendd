@@ -1,0 +1,23 @@
+name: Deploy Frontend to GCP VM
+
+on:
+  push:
+    branches:
+      - main   # Trigger deploy only on main branch push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up SSH key
+      run: |
+        echo "${{ secrets.GCP_SSH_KEY }}" > gcp_key
+        chmod 600 gcp_key
+
+    - name: Deploy to GCP VM
+      run: |
+        ssh -i gcp_key -o StrictHostKeyChecking=no mdshamsher8431@35.238.65.175 'bash /home/mdshamsher8431/deploy.sh'
